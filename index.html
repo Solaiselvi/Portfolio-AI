@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Solaiselvi B · AI web dev · premium interactions</title>
+    <!-- Poppins font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome 6 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: linear-gradient(
+          145deg,
+          #0b1c24 0%,
+          #1c3a47 50%,
+          #1e4b5c 100%
+        );
+        color: #f0f9ff;
+        scroll-behavior: smooth;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+      .hero-glow-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(0, 245, 255, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(100, 200, 255, 0.06) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: -1;
+        animation: softPulse 12s infinite alternate;
+      }
+      @keyframes softPulse {
+        0% {
+          opacity: 0.4;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0.8;
+          transform: scale(1.02);
+        }
+      }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 20, 27, 0.8);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        padding: 0.7rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        background: linear-gradient(130deg, #a0f0ff, #70ffd6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        white-space: nowrap;
+      }
+      .logo span {
+        font-weight: 300;
+        font-size: 0.8rem;
+        color: #b2ebf2;
+        margin-left: 4px;
+      }
+      .nav-container {
+        display: flex;
+        align-items: center;
+      }
+      #menu-toggle {
+        display: none;
+      }
+      .hamburger {
+        display: none;
+        font-size: 2rem;
+        color: #00f5ff;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        line-height: 1;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+      .nav-links a {
+        color: #e2f0f7;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        position: relative;
+        padding: 0.2rem 0;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+      .nav-links a i {
+        margin-right: 5px;
+        font-size: 0.9rem;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #00f5ff;
+        border-radius: 4px;
+        transition: 0.25s ease;
+      }
+      .nav-links a:hover {
+        color: #ffffff;
+        text-shadow: 0 0 8px #00f5ff;
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      @media (max-width: 700px) {
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(5, 20, 27, 0.97);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          padding: 0.5rem 0 1rem;
+          transform: translateY(-150%);
+          opacity: 0;
+          transition: transform 0.3s ease, opacity 0.25s;
+          pointer-events: none;
+          border-bottom: 1px solid #00f5ff40;
+          box-shadow: 0 20px 30px -8px black;
+          z-index: 999;
+        }
+        .hamburger {
+          display: block;
+        }
+        #menu-toggle:checked ~ .nav-links {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: all;
+        }
+        .nav-links a {
+          display: block;
+          width: 100%;
+          text-align: center;
+          padding: 0.9rem 0;
+          font-size: 1.1rem;
+          border-bottom: 1px solid #2a4a5a;
+        }
+        .nav-links a:last-child {
+          border-bottom: none;
+        }
+        .nav-links a::after {
+          display: none;
+        }
+        header {
+          padding: 0.6rem 5%;
+        }
+        .logo {
+          font-size: 1.3rem;
+        }
+      }
+
+      /* ----- REDUCED SECTION SPACING (from 6rem to 3rem top/bottom) ----- */
+      section {
+        min-height: 100vh;
+        padding: 3rem 6% 3rem; /* top padding reduced from 6rem to 3rem */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* optional: reduce gap between sections further if needed, but padding handles it */
+
+      .section-content {
+        animation: fadeSlide 0.8s ease forwards;
+      }
+      @keyframes fadeSlide {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .home {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        text-align: center;
+      }
+      .hero-content {
+        flex: 1 1 400px;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .hero-image {
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .profile-photo {
+        width: clamp(160px, 24vw, 260px);
+        height: clamp(160px, 24vw, 260px);
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #00f5ff;
+        box-shadow: 0 25px 35px -10px #00000099,
+          0 0 0 2px rgba(0, 245, 255, 0.3), 0 0 40px rgba(0, 245, 255, 0.3);
+        transition: all 0.4s ease;
+        background: #1c3a47;
+      }
+      .profile-photo:hover {
+        transform: scale(1.02) rotate(1deg);
+        box-shadow: 0 30px 40px -10px #000000cc,
+          0 0 0 3px rgba(0, 245, 255, 0.5), 0 0 60px #00f5ff;
+      }
+      .home h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+      }
+      .home .highlight {
+        background: linear-gradient(145deg, #00f5ff, #7ae9ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+      }
+      .home p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        max-width: 620px;
+        margin: 1.5rem auto;
+        background: rgba(0, 40, 50, 0.35);
+        backdrop-filter: blur(4px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        border-left: 5px solid #00f5ff;
+        font-weight: 300;
+        text-align: left;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .home p:hover {
+        border-left-color: #ffd966;
+        box-shadow: 0 0 25px rgba(0, 245, 255, 0.3);
+      }
+      .tag-group {
+        margin-top: 25px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .tag-group span {
+        background: #00f5ff20;
+        border-radius: 40px;
+        padding: 5px 18px;
+        font-weight: 300;
+        font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+      .tag-group span:hover {
+        background: #00f5ff40;
+        border-color: #00f5ff;
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px #00f5ff80;
+      }
+      @media (max-width: 700px) {
+        .home {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .hero-image {
+          order: -1;
+          margin-bottom: 0.5rem;
+        }
+        .home p {
+          text-align: left;
+        }
+      }
+
+      /* ===== SECTION TITLES - REMOVED UNDERLINE (::before removed) ===== */
+      .section-title {
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+        font-weight: 600;
+        margin-bottom: 1.5rem; /* slightly reduced margin */
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(130deg, #b3f0ff, #5edfff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        transition: text-shadow 0.3s ease;
+        /* no ::before pseudo-element */
+      }
+      .section-title:hover {
+        text-shadow: 0 0 25px #00f5ff;
+      }
+      /* REMOVED .section-title::before completely */
+
+      .skills-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+      .skill-subsection h3 {
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        font-weight: 500;
+        color: #b0f0ff;
+        margin-bottom: 1.2rem;
+        border-left: 5px solid #00f5ff;
+        padding-left: 1rem;
+        transition: border-color 0.3s ease;
+      }
+      .skill-subsection h3:hover {
+        border-left-color: #ffd966;
+      }
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 0.8rem;
+      }
+      .tech-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        border-radius: 20px;
+        padding: 0.8rem 0.3rem;
+        text-align: center;
+        font-weight: 500;
+        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+        color: #d6f3ff;
+        transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .tech-card i {
+        display: block;
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        margin-bottom: 4px;
+        color: #7ef0f5;
+        transition: transform 0.3s ease;
+      }
+      .tech-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        background: rgba(0, 245, 255, 0.15);
+        border-color: #00f5ff;
+        box-shadow: 0 0 25px #00f5ff80, 0 10px 20px -10px black;
+      }
+      .tech-card:hover i {
+        transform: scale(1.1);
+        color: #ffd966;
+      }
+      .behavioral-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      .behavior-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        border-radius: 30px;
+        padding: 0.5rem 1.2rem;
+        font-weight: 400;
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        color: #e2f0f7;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .behavior-card i {
+        color: #ffd966;
+        font-size: 0.9rem;
+        transition: transform 0.3s;
+      }
+      .behavior-card:hover {
+        background: rgba(0, 245, 255, 0.15);
+        border-color: #00f5ff;
+        transform: scale(1.02) translateY(-2px);
+        box-shadow: 0 0 20px #00f5ff80;
+      }
+      .behavior-card:hover i {
+        transform: rotate(5deg);
+      }
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 0.5rem;
+      }
+      .project-card {
+        background: rgba(15, 40, 50, 0.45);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(0, 245, 255, 0.25);
+        border-radius: 28px;
+        padding: 1.8rem 1.5rem;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        box-shadow: 0 25px 30px -12px #00000080;
+      }
+      .project-card:hover {
+        background: rgba(0, 60, 75, 0.7);
+        border-color: #00f5ff;
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 0 40px #00f5ff80, 0 30px 40px -20px black;
+      }
+      .project-card h3 {
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        font-weight: 600;
+        color: #b7f0ff;
+        margin-bottom: 1rem;
+        transition: color 0.3s;
+      }
+      .project-card:hover h3 {
+        color: #ffffff;
+      }
+      .project-card p {
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        font-weight: 300;
+        color: #cfecf2;
+        line-height: 1.5;
+      }
+      .project-icon {
+        font-size: clamp(1.8rem, 5vw, 2rem);
+        margin-bottom: 0.5rem;
+        color: #2de0e5;
+        transition: transform 0.3s ease;
+      }
+      .project-card:hover .project-icon {
+        transform: scale(1.1);
+        color: #ffd966;
+      }
+      .contact-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 1.8rem;
+        align-items: start;
+      }
+      .social-links-card {
+        background: rgba(15, 35, 50, 0.5);
+        backdrop-filter: blur(14px);
+        border-radius: 40px;
+        padding: 2rem 1.8rem;
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        box-shadow: 0 30px 40px -25px black;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        transition: box-shadow 0.3s ease;
+      }
+      .social-links-card:hover {
+        box-shadow: 0 0 30px #00f5ff40, 0 30px 40px -25px black;
+      }
+      .social-links-card h4 {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #b7f0ff;
+        margin-bottom: 0.5rem;
+        border-left: 4px solid #00f5ff;
+        padding-left: 1rem;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        color: #ffffff;
+        text-decoration: none;
+        padding: 0.7rem 1.2rem;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.02);
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+      .contact-item i {
+        width: 32px;
+        font-size: 1.6rem;
+        color: #00f5ff;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .contact-item:hover {
+        background: rgba(0, 245, 255, 0.1);
+        border-color: #00f5ff;
+        transform: translateX(6px);
+        box-shadow: 0 0 25px #00f5ff80;
+      }
+      .contact-item:hover i {
+        transform: scale(1.1);
+        color: #ffd966;
+      }
+      .resume-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: rgba(0, 245, 255, 0.15);
+        border: 1.5px solid #00f5ff;
+        border-radius: 60px;
+        padding: 0.9rem 1.8rem;
+        font-weight: 500;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-top: 0.8rem;
+        backdrop-filter: blur(8px);
+      }
+      .resume-btn i {
+        color: #00f5ff;
+        font-size: 1.2rem;
+        transition: transform 0.3s;
+      }
+      .resume-btn:hover {
+        background: #00f5ff30;
+        box-shadow: 0 0 35px #00f5ff;
+        transform: scale(1.02);
+      }
+      .resume-btn:hover i {
+        transform: translateY(-2px);
+      }
+      .contact-form-card {
+        background: rgba(15, 35, 50, 0.5);
+        backdrop-filter: blur(14px);
+        border-radius: 40px;
+        padding: 2rem 2rem;
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        box-shadow: 0 30px 40px -25px black;
+        transition: box-shadow 0.3s ease;
+      }
+      .contact-form-card:hover {
+        box-shadow: 0 0 30px #00f5ff40, 0 30px 40px -25px black;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        border-radius: 30px;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+        color: white;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: #00f5ff;
+        box-shadow: 0 0 30px #00f5ff;
+        background: rgba(0, 245, 255, 0.1);
+        transform: scale(1.01);
+      }
+      .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: #b0d0e0;
+        font-weight: 300;
+      }
+      .send-btn {
+        background: linear-gradient(145deg, #00c8ff, #0088ff);
+        border: none;
+        border-radius: 60px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: white;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px -10px #00f5ff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .send-btn:hover {
+        background: linear-gradient(145deg, #00a0ff, #0060dd);
+        transform: scale(1.02);
+        box-shadow: 0 0 40px #00f5ff;
+      }
+      @media (max-width: 750px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+      @media (max-width: 500px) {
+        .behavior-card {
+          white-space: normal;
+        }
+        .tech-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 380px) {
+        .tech-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      footer {
+        text-align: center;
+        padding: 1.2rem 1rem;
+        background: #08232e;
+        font-weight: 300;
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        border-top: 1px solid #00f5ff20;
+      }
+
+      /* ===== CHATBOT STYLES (unchanged) ===== */
+      .chatbot-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        font-family: "Poppins", sans-serif;
+      }
+      .chatbot-toggle {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        background: rgba(0, 245, 255, 0.2);
+        backdrop-filter: blur(12px);
+        border: 2px solid #00f5ff;
+        box-shadow: 0 0 30px #00f5ff80, 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+        font-size: 2rem;
+      }
+      .chatbot-toggle:hover {
+        transform: scale(1.1);
+        background: rgba(0, 245, 255, 0.35);
+        box-shadow: 0 0 50px #00f5ff;
+      }
+      .chatbot-panel {
+        position: absolute;
+        bottom: 85px;
+        right: 0;
+        width: 380px;
+        max-width: 85vw;
+        height: 500px;
+        background: rgba(10, 25, 35, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        border-radius: 30px;
+        box-shadow: 0 30px 60px -20px black, 0 0 0 1px rgba(0, 245, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transform: scale(0);
+        opacity: 0;
+        transform-origin: bottom right;
+        transition: transform 0.3s ease, opacity 0.2s ease;
+      }
+      .chatbot-panel.open {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .chatbot-header {
+        padding: 1.5rem 1.8rem;
+        border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .chatbot-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #00f5ff, #0088cc);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: white;
+        box-shadow: 0 0 20px #00f5ff;
+      }
+      .chatbot-title {
+        flex: 1;
+      }
+      .chatbot-title h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 2px;
+      }
+      .chatbot-title p {
+        font-size: 0.8rem;
+        color: #a0f0ff;
+        opacity: 0.9;
+      }
+      .chatbot-close {
+        background: transparent;
+        border: none;
+        color: #a0f0ff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .chatbot-close:hover {
+        color: #ffd966;
+        transform: scale(1.1);
+      }
+      .chatbot-messages {
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        scroll-behavior: smooth;
+      }
+      .message {
+        display: flex;
+        flex-direction: column;
+        max-width: 85%;
+      }
+      .user-message {
+        align-self: flex-end;
+      }
+      .bot-message {
+        align-self: flex-start;
+      }
+      .message-bubble {
+        padding: 0.8rem 1.2rem;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        word-wrap: break-word;
+      }
+      .user-message .message-bubble {
+        background: rgba(0, 245, 255, 0.2);
+        border: 1px solid #00f5ff80;
+        border-bottom-right-radius: 5px;
+        color: white;
+      }
+      .bot-message .message-bubble {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-bottom-left-radius: 5px;
+        color: #f0f9ff;
+      }
+      .typing-indicator {
+        display: flex;
+        gap: 4px;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
+        width: fit-content;
+      }
+      .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: #00f5ff;
+        border-radius: 50%;
+        animation: typingBounce 1.4s infinite ease-in-out;
+      }
+      .typing-indicator span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes typingBounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+      }
+      .chatbot-input {
+        padding: 1.2rem 1.5rem;
+        border-top: 1px solid rgba(0, 245, 255, 0.2);
+        display: flex;
+        gap: 10px;
+      }
+      .chatbot-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        border-radius: 40px;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        color: white;
+        outline: none;
+      }
+      .chatbot-input input:focus {
+        border-color: #00f5ff;
+        box-shadow: 0 0 20px #00f5ff80;
+      }
+      .chatbot-input button {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(0, 245, 255, 0.2);
+        border: 1.5px solid #00f5ff;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chatbot-input button:hover {
+        background: #00f5ff40;
+        transform: scale(1.05);
+        box-shadow: 0 0 25px #00f5ff;
+      }
+      @media (max-width: 500px) {
+        .chatbot-panel {
+          width: 320px;
+          right: 0;
+        }
+        .chatbot-toggle {
+          width: 55px;
+          height: 55px;
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-glow-bg"></div>
+
+    <header>
+      <div class="logo">SOLAISELVI B<span> · AI dev</span></div>
+      <div class="nav-container">
+        <input type="checkbox" id="menu-toggle" hidden />
+        <label for="menu-toggle" class="hamburger"
+          ><i class="fas fa-bars"></i
+        ></label>
+        <nav class="nav-links">
+          <a
+            href="#home"
+            onclick="document.getElementById('menu-toggle').checked = false"
+            >Home</a
+          >
+          <a
+            href="#skills"
+            onclick="document.getElementById('menu-toggle').checked = false"
+            >Skills</a
+          >
+          <a
+            href="#projects"
+            onclick="document.getElementById('menu-toggle').checked = false"
+            >Projects</a
+          >
+          <a
+            href="#contact"
+            onclick="document.getElementById('menu-toggle').checked = false"
+            >Contact</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- HOME -->
+    <section id="home" class="home section-content">
+      <div class="hero-content">
+        <h1>Hello, I'm <span class="highlight">Solaiselvi </span></h1>
+        <p>
+          <i class="fas fa-robot" style="margin-right: 10px; color: #00f5ff"></i
+          >AI-driven Web Developer · scalable & intelligent applications
+        </p>
+        <div class="tag-group">
+          <span><i class="fas fa-brain"></i> LLM · edge AI</span>
+          <span><i class="fas fa-database"></i> federated learning</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img
+          src="./assets/solai.jpg"
+          alt="Solaiselvi"
+          class="profile-photo"
+          onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'45\' r=\'28\' fill=\'%233a7a8c\' stroke=\'%2300f5ff\' stroke-width=\'3\'/%3E%3Ccircle cx=\'38\' cy=\'40\' r=\'4\' fill=\'%23ffffff\'/%3E%3Ccircle cx=\'62\' cy=\'40\' r=\'4\' fill=\'%23ffffff\'/%3E%3Cpath d=\'M38 55 Q50 68, 62 55\' stroke=\'%23ffffff\' stroke-width=\'3\' fill=\'none\' stroke-linecap=\'round\' /%3E%3Cpath d=\'M30 80 Q50 95, 70 80\' stroke=\'%23663399\' stroke-width=\'4\' fill=\'none\' /%3E%3C/svg%3E'"
+        />
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section-content">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-wrapper">
+        <div class="skill-subsection">
+          <h3>Technical Skills</h3>
+          <div class="tech-grid">
+            <div class="tech-card"><i class="fas fa-code"></i> C</div>
+            <div class="tech-card"><i class="fas fa-code-branch"></i> C++</div>
+            <div class="tech-card"><i class="fab fa-java"></i> Java</div>
+            <div class="tech-card">
+              <i class="fab fa-python"></i> Python (Basic)
+            </div>
+            <div class="tech-card"><i class="fab fa-html5"></i> HTML</div>
+            <div class="tech-card"><i class="fab fa-css3-alt"></i> CSS</div>
+            <div class="tech-card"><i class="fas fa-database"></i> MySQL</div>
+            <div class="tech-card">
+              <i class="fas fa-cloud-upload-alt"></i> Netlify
+            </div>
+            <div class="tech-card"><i class="fab fa-git-alt"></i> Git</div>
+            <div class="tech-card"><i class="fab fa-github"></i> GitHub</div>
+            <div class="tech-card"><i class="fas fa-code"></i> VS Code</div>
+            <div class="tech-card"><i class="fas fa-table"></i> Excel</div>
+          </div>
+        </div>
+        <div class="skill-subsection">
+          <h3>Behavioral Skills</h3>
+          <div class="behavioral-grid">
+            <span class="behavior-card"
+              ><i class="fas fa-puzzle-piece"></i> Problem Solving</span
+            >
+            <span class="behavior-card"
+              ><i class="fas fa-comments"></i> Communication</span
+            >
+            <span class="behavior-card"
+              ><i class="fas fa-crown"></i> Leadership</span
+            >
+            <span class="behavior-card"
+              ><i class="fas fa-handshake"></i> Team Collaboration</span
+            >
+            <span class="behavior-card"
+              ><i class="fas fa-calendar-check"></i> Event Management</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section-content">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-container">
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-link"></i
+            ><i class="fas fa-shield-alt" style="margin-left: 8px"></i>
+          </div>
+          <h3>Blockchain Based Certificate Verification System</h3>
+          <p>
+            Decentralized certificate verification using blockchain immutability
+            and cryptographic hashing for tamper‑proof validation. (Hyperledger,
+            SHA‑256)
+          </p>
+        </div>
+        <div class="project-card">
+          <div class="project-icon">
+            <i class="fas fa-heartbeat"></i
+            ><i class="fas fa-network-wired" style="margin-left: 8px"></i>
+          </div>
+          <h3>Multi-Model Federated Healthcare Data Intelligence System</h3>
+          <p>
+            Privacy‑preserving distributed learning system using CNN, LSTM and
+            neural networks for cross‑institutional healthcare analysis.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section-content">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-wrapper">
+        <div class="contact-grid">
+          <div class="social-links-card">
+            <h4>Connect</h4>
+            <a href="mailto:solaiselvisda27@gmail.com" class="contact-item"
+              ><i class="fas fa-envelope"></i
+              ><span>solaiselvisda27@gmail.com</span></a
+            >
+            <a
+              href="https://linkedin.com/in/solaiselvib27"
+              target="_blank"
+              class="contact-item"
+              ><i class="fab fa-linkedin"></i
+              ><span>linkedin.com/in/solaiselvib27</span></a
+            >
+            <a
+              href="https://github.com/solaiselvib27"
+              target="_blank"
+              class="contact-item"
+              ><i class="fab fa-github"></i
+              ><span>github.com/solaiselvib27</span></a
+            >
+            <a
+              href="#"
+              class="resume-btn"
+              onclick="alert('Resume download would start (PDF placeholder)'); return false;"
+              ><i class="fas fa-file-pdf"></i> Download Resume</a
+            >
+          </div>
+          <div class="contact-form-card">
+            <h4
+              style="
+                font-size: 1.3rem;
+                margin-bottom: 1.8rem;
+                color: #b7f0ff;
+                border-left: 4px solid #00f5ff;
+                padding-left: 1rem;
+              "
+            >
+              Send a Message
+            </h4>
+            <form
+              onsubmit="alert('Message sent (demo) – thank you!'); return false;"
+            >
+              <div class="form-group">
+                <input type="text" placeholder="Your Name" required />
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Email Address" required />
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Your Message" required></textarea>
+              </div>
+              <button type="submit" class="send-btn">
+                <i class="fas fa-paper-plane" style="margin-right: 8px"></i>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Solaiselvi · AI Web Developer Portfolio · built with HTML/CSS
+    </footer>
+
+    <!-- ===== SMART PORTFOLIO ASSISTANT CHATBOT (UPGRADED LOGIC) ===== -->
+    <div class="chatbot-container">
+      <div class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="chatbot-panel" id="chatbotPanel">
+        <div class="chatbot-header">
+          <div class="chatbot-avatar"><i class="fas fa-brain"></i></div>
+          <div class="chatbot-title">
+            <h4>Solaiselvi AI</h4>
+            <p>Portfolio assistant</p>
+          </div>
+          <button class="chatbot-close" id="chatbotClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+          <div class="message bot-message">
+            <div class="message-bubble">
+              👋 Hi! I'm Solaiselvi's AI assistant. Ask me about skills,
+              projects, experience, education, or contact info!
+            </div>
+          </div>
+        </div>
+        <div class="chatbot-input">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Type your question..."
+          />
+          <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const header = document.querySelector("header");
+        const headerHeight = header.offsetHeight;
+        document.querySelectorAll(".nav-links a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            const toggle = document.getElementById("menu-toggle");
+            if (toggle) toggle.checked = false;
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              const elementPosition =
+                targetElement.getBoundingClientRect().top + window.scrollY;
+              window.scrollTo({
+                top: elementPosition - headerHeight - 8,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      })();
+
+      // ========== UPGRADED CHATBOT LOGIC ==========
+      // Category-based keyword groups for accurate matching
+      const categories = {
+        identity: {
+          keywords: [
+            "who are you",
+            "who is solai",
+            "who is solaiselvi",
+            "introduce yourself",
+            "tell me about yourself",
+            "about you",
+            "what do you do",
+            "your profile",
+            "introduce",
+            "about solai",
+            "about solaiselvi",
+            "yourself",
+            "solai",
+            "solaiselvi",
+          ],
+          response:
+            "I'm Solaiselvi B, an AI-focused web developer. I'm skilled in C, C++, Java, Python, HTML, CSS, MySQL, Git, and more. I've built projects like a Blockchain Certificate Verification System and a Federated Healthcare Intelligence System. I'm open to AI & product-based roles and internships.",
+        },
+        skills: {
+          keywords: [
+            "skills",
+            "technologies",
+            "tech stack",
+            "programming languages",
+            "what do you know",
+            "your skills",
+            "technical skills",
+            "languages",
+            "frameworks",
+            "tools",
+          ],
+          response:
+            "My technical skills include: C, C++, Java, Python (Basic), HTML, CSS, MySQL, Netlify, Git, GitHub, VS Code, Excel. I also work with AI concepts like LLMs and federated learning. Behavioral skills: Problem Solving, Communication, Leadership, Team Collaboration, Event Management.",
+        },
+        projects: {
+          keywords: [
+            "projects",
+            "project",
+            "blockchain",
+            "certificate verification",
+            "federated",
+            "healthcare",
+            "what have you built",
+            "your projects",
+            "portfolio projects",
+          ],
+          response:
+            "I have two main projects: 1) Blockchain Based Certificate Verification System – decentralized, tamper-proof validation using Hyperledger and SHA-256. 2) Multi-Model Federated Healthcare Data Intelligence System – privacy-preserving distributed learning with CNN, LSTM, and neural networks for cross-institutional healthcare analysis.",
+        },
+        experience: {
+          keywords: [
+            "experience",
+            "internship",
+            "work experience",
+            "intern",
+            "java developer intern",
+            "web developer intern",
+            "professional experience",
+            "jobs",
+          ],
+          response:
+            "I have internship experience as a Java Developer Intern (OOP, JDBC) and as a Web Developer Intern working with the MERN stack (MongoDB, Express, React, Node.js).",
+        },
+        education: {
+          keywords: [
+            "education",
+            "college",
+            "degree",
+            "cgpa",
+            "computer science",
+            "cse",
+            "academics",
+            "qualification",
+            "background",
+          ],
+          response:
+            "I'm pursuing Computer Science and Engineering with a current CGPA of 8.54.",
+        },
+        contact: {
+          keywords: [
+            "contact",
+            "email",
+            "linkedin",
+            "github",
+            "reach you",
+            "hire",
+            "collaborate",
+            "get in touch",
+            "mail",
+            "address",
+          ],
+          response:
+            "You can reach me at solaiselvisda27@gmail.com, connect on LinkedIn: linkedin.com/in/solaiselvib27, or check my GitHub: github.com/solaiselvib27. I'm open to AI + web collaborations!",
+        },
+        availability: {
+          keywords: [
+            "availability",
+            "open to",
+            "internships",
+            "roles",
+            "job",
+            "opportunities",
+            "hire",
+            "work together",
+            "collaboration",
+          ],
+          response:
+            "I'm currently open to internships and AI / product-based roles. I'm also available for AI and web development collaborations.",
+        },
+      };
+
+      function getBotResponse(userMsg) {
+        const msg = userMsg.toLowerCase().trim();
+        if (msg === "") return "Please ask a question!";
+
+        // 1. Check identity first (partial match for 'solai' etc.)
+        // Identity also caught by keywords, but we'll also do direct partial for solai
+        if (msg.includes("solai") || msg.includes("solaiselvi")) {
+          // but avoid double matching if it's a different category (e.g., "solai skills" should go to skills maybe)
+          // we'll let category loop decide, but ensure identity has priority if no other matches?
+          // we'll rely on keyword groups.
+        }
+
+        // Loop through categories and check if any keyword is included in msg
+        for (let [cat, data] of Object.entries(categories)) {
+          if (data.keywords.some((keyword) => msg.includes(keyword))) {
+            return data.response;
+          }
+        }
+
+        // 2. Partial fallback for very short queries like "who" -> identity
+        if (msg.match(/\b(who|about|yourself)\b/)) {
+          return categories.identity.response;
+        }
+        if (msg.match(/\b(skills?|technologies?|tools?)\b/)) {
+          return categories.skills.response;
+        }
+        if (msg.match(/\b(projects?|built|made|create)\b/)) {
+          return categories.projects.response;
+        }
+        if (msg.match(/\b(experience|intern|internship)\b/)) {
+          return categories.experience.response;
+        }
+        if (msg.match(/\b(education|college|degree|university|cgpa)\b/)) {
+          return categories.education.response;
+        }
+        if (msg.match(/\b(contact|email|linkedin|github|reach)\b/)) {
+          return categories.contact.response;
+        }
+        if (msg.match(/\b(open|available|role|job|internship|collab)\b/)) {
+          return categories.availability.response;
+        }
+
+        // 3. Default fallback (guides user)
+        return "I'm not sure about that. You can ask me about my skills, projects, internships, education, contact info, or availability.";
+      }
+
+      // UI Logic (unchanged)
+      const toggleBtn = document.getElementById("chatbotToggle");
+      const closeBtn = document.getElementById("chatbotClose");
+      const panel = document.getElementById("chatbotPanel");
+      const messagesDiv = document.getElementById("chatbotMessages");
+      const userInput = document.getElementById("userInput");
+      const sendBtn = document.getElementById("sendMessage");
+
+      function toggleChat() {
+        panel.classList.toggle("open");
+      }
+
+      toggleBtn.addEventListener("click", toggleChat);
+      closeBtn.addEventListener("click", toggleChat);
+
+      function addMessage(text, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add(
+          "message",
+          sender === "user" ? "user-message" : "bot-message"
+        );
+        const bubble = document.createElement("div");
+        bubble.classList.add("message-bubble");
+        bubble.innerText = text;
+        messageDiv.appendChild(bubble);
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      function showTypingAndRespond(userText) {
+        // typing indicator
+        const typingDiv = document.createElement("div");
+        typingDiv.classList.add("message", "bot-message");
+        const typingIndicator = document.createElement("div");
+        typingIndicator.classList.add("typing-indicator");
+        for (let i = 0; i < 3; i++) {
+          let span = document.createElement("span");
+          typingIndicator.appendChild(span);
+        }
+        typingDiv.appendChild(typingIndicator);
+        messagesDiv.appendChild(typingDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        setTimeout(() => {
+          // remove typing indicator
+          messagesDiv.removeChild(typingDiv);
+          const response = getBotResponse(userText);
+          addMessage(response, "bot");
+        }, 800);
+      }
+
+      function handleSend() {
+        const text = userInput.value.trim();
+        if (text === "") return;
+        addMessage(text, "user");
+        userInput.value = "";
+        showTypingAndRespond(text);
+      }
+
+      sendBtn.addEventListener("click", handleSend);
+      userInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleSend();
+      });
+    </script>
+  </body>
+</html>
